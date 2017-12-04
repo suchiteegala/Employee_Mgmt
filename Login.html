@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="Css/master.css">
+<link rel="stylesheet" type="text/css" href="Css/empMgmnt.css">
+ <title>Employee Management </title>
+    <body>
+   <script type="text/javascript">
+    function validateUser()
+    {
+	var registeredUser = new Array();
+        registeredUser.push(["admin@EmpMgmt.com","admin123"]);
+	var userid = document.getElementById("userid").value;
+	var pwd = document.getElementById("pwd").value;
+	for (var i = 0; i < registeredUser.length; i++) 
+	{
+	  if((registeredUser[i][0] == userid) && (registeredUser[i][1] == pwd))
+	  {
+	   window.location.href  = "EmpMgmt.html?userid=" + userid;
+	  }
+	  else
+	 {
+	  alert("Invalid User/password !");
+	 }
+       }
+	
+    }
+   </script>
+    <div class="divPnlContnr">
+      <img src = "images/icon.png">
+      <label><b>Employee Management </b></label>
+    </div>
+    <form>
+    <div class="imgcontainer">
+    	<img src="images/user.png" alt="Enter your credentials!" class="user">
+  	</div>
+    <div class = "divLoginContnr">
+    	<label><b>User Name: </b> </label>
+    	<input type="text" class = "textbox" id="userid" placeholder ="Enter User Name" required><br>
+        <label><b>Password: </b> </label>&nbsp;
+    	<input type="password"class="textbox" id ="pwd" placeholder ="Enter Password" required><br>
+        <button type="submit" class="button" id ="lgnbtn" align="center" onclick="validateUser();return false;">Login</button>
+    </div>
+    </form>
+     <footer>
+  	<div class="divPnlFootContnr">
+    	<label class="label">EMP MGMT © 2017 All rights reserved</label>
+    </div>
+  </footer>
+ </body>
+</html>

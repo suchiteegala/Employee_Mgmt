@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Employee Management </title>
+
+<link rel="stylesheet" type="text/css" href="Css/empMgmnt.css">
+<link rel="stylesheet" type="text/css" href="Css/modal.css">
+<link rel="stylesheet" type="text/css" href="Css/master.css">
+<script type="text/javascript" src="Scripts/employees.js"></script>
+<script type="text/javascript" src="Scripts/empDelete.js"></script>
+
+  </head>
+  <body>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close"></span>
+      <div class="divPnlContnr">
+       <label>Add New Employee </label>
+	</div>
+	<form>
+	<div>
+	 <label>First Name : </label>&nbsp;&nbsp;
+	 <input type="text" id ="txtfname" class="textbox" placeholder="Enter your first name" required></br>
+	 <label>Last Name : </label>&nbsp;&nbsp;
+	 <input type="text" id ="txtlname" class="textbox" placeholder="Enter your last name" required></br>
+	 <label>Email : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 <input type="text" id ="txtemail"  class="textbox" placeholder="Enter your email" required></br>
+	 <label>Phone : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 <input type="text" id ="txtphone"  class="textbox" placeholder="Enter your phone number" required></br>
+	 <label>Address : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 <input type="text" id ="txtaddress"  class="textbox" placeholder="Enter your address" required></br>
+	 <label>Gender : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 <input type="radio" name="gender" value="Male">Male &nbsp;&nbsp;
+	 <input type="radio" name="gender" value="Female">Female </br>
+	 <label>State : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 <input type="radio" name="state" value="Active">Active
+	 <input type="radio" name="state" value="Inactive">Inactive </br>
+	</div>
+	</form>
+	<div>
+	<input type="submit" value="Cancel" onclick="ModelClose()" class="button">
+	<input type="submit" id="btnsave" value="Save" onclick="Add()" class="button">
+	</div>
+  </div>
+
+</div>
+
+  <div class="divPnlContnr">
+      <img src = "images/icon.png">
+      <label><b>EMP MGMT</b></label>
+      <a href ="" >
+	<label id="useremailid">user</label>
+	<input type ="image" src="images/usericon.png" >
+	<span> | </span>
+	<span id="logout" onclick = "logout();return false;"><b>Log Out</b></span>
+      </a>
+	
+    </div>
+   <form>
+     <div>
+     <br/>
+	<div>
+	    <input type="search">
+	    <input type="image" src="images/search.png" alt="search" >
+	    <!-- The Modal -->
+
+	    <a href="" onclick ="updateCntrls();return false;" style ="color:black">
+		<img src = "Images/add.png">
+                <b>Add New</b>
+	   </a>
+	</div>
+     <br/>
+     	<div id="dvEmpTable">
+        	<table id="empTable">
+            <thead>
+          <tr>
+               <th>First Name</th>
+               <th>Last Name</th>
+               <th>Gender</th>
+               <th>Email</th>
+	           <th>Phone</th>
+               <th>State</th>
+               <th>Actions</th>
+           </tr>
+         </thead>
+     	<tbody id="tbody">
+     	</tbody>
+     </table>
+     	</div>
+     </div>
+   </form>
+
+
+<script>
+   let params = (new URL(document.location)).searchParams;
+   let name = params.get("userid");
+   document.getElementById('useremailid').innerHTML = name ;
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+ function ModalOpen() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function ModelClose(){
+  modal.style.display = "none";
+}
+
+function Add()
+	{
+  	    var table = document.getElementById("empTable");
+	    var row  = table.insertRow(-1);
+	    table.border = "1";
+	        var row  = table.insertRow(-1);
+         	var cell = row.insertCell(-1);
+		var fname = document.getElementById("txtfname").value;
+		cell.innerHTML = fname;
+		cell = row.insertCell(-1);
+		var lname = document.getElementById("txtlname").value;
+		cell.innerHTML = lname;
+		cell = row.insertCell(-1);
+		var gender = document.querySelector('input[name="gender"]:checked').value;
+		cell.innerHTML = gender;  
+		cell = row.insertCell(-1);      	
+		var email = document.getElementById("txtemail").value;
+		cell.innerHTML = email;
+		cell = row.insertCell(-1);
+		var phone = document.getElementById("txtphone").value;
+		cell.innerHTML = phone;
+		cell = row.insertCell(-1);
+		var state = document.querySelector('input[name="state"]:checked').value;
+		cell.innerHTML = state;
+		cell = row.insertCell(-1);
+	        cell.innerHTML = "<input type='image' height='30' width='30' alt='info' src='Images/info.png')>";
+        	cell.innerHTML = cell.innerHTML + "<input type='image' height='30' width='30' alt='edit' src= 'images/edit.png'>";
+                cell.innerHTML = cell.innerHTML + "<input type='image' src='images/delete.png' height='30' width='30'  onclick='removeRow(this);'>";
+
+	    	alert("Employee record added sucessfully !");
+		modal.style.display = "none";
+		
+	}
+
+function logout()
+{
+  alert("User will be logged out");
+  window.location.href = "Login.html";
+}
+
+function updateCntrls()
+{
+	document.getElementById("txtfname").readOnly=false;
+  	  document.getElementById("txtlname").readOnly=false;
+          document.getElementById("btnsave").value = "Save"; 
+          ModalOpen();
+}
+
+</script>
+  </body>
+  <footer>
+  	<div class="divPnlFootContnr">
+    	<label class="label">EMP MGMT © 2017 All rights reserved</label>
+    </div>
+  </footer>
+</html>
